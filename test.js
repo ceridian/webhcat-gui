@@ -39,10 +39,12 @@ debugFlag = 'true';
 // };
 
 function start(){
-  console.log(Date.dateStamp());
-  u.log('test', function(err){
-    if(err) console.log(err);
-    console.log('done');
-  });
+  var d = new Date();
+  console.log(d.getDate());
+  // console.log(Date.dateStamp());
+  // u.log('test', function(err){
+  //   if(err) console.log(err);
+  //   console.log('done');
+  // });
 }
 start();
