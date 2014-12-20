@@ -28,7 +28,7 @@ describe('hosts()', function(){
 */
 
 describe('ping()', function(){
-	it('should return an object', function(done){
+	it('should return a ping object', function(done){
 		var targ = '127.0.0.1';
 		l.ping(targ, function(err, res){
 			expect(err).toBe(null);
@@ -39,7 +39,7 @@ describe('ping()', function(){
 });
 
 describe('hostStatus()', function(){
-	it('should return an object', function(done){
+	it('should return status of all hosts', function(done){
 		l.hostStatus(function(err, res){
 			expect(err).toBe(null);
 			expect(res).not.toBe(null);
@@ -47,3 +47,13 @@ describe('hostStatus()', function(){
 		});
 	});
 });
+
+describe('status()', function(){
+	it('should return all status pings from db', function(done){
+		l.status(function(err, res){
+			expect(err).toBe(null);
+			expect(res).not.toBe(null);
+			done();
+		});
+	});
+})

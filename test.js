@@ -40,7 +40,7 @@ debugFlag = 'true';
 // };
 
 function start(){
-  l.hostStatus( function(err, res){
+  l.status( function(err, res){
     console.log(err, res);
   });
 }
