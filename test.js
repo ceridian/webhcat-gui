@@ -39,12 +39,8 @@ debugFlag = 'true';
 // };
 
 function start(){
-  var d = new Date();
-  console.log(d.getDate());
-  // console.log(Date.dateStamp());
-  // u.log('test', function(err){
-  //   if(err) console.log(err);
-  //   console.log('done');
-  // });
+  u.getPreviousDate(4, function(d){
+    console.log(d);
+  });
 }
 start();
