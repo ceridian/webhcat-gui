@@ -1,58 +1,91 @@
 var u = require('../lib/util.js');
 
-Date.prototype.dateStamp = function() {  // outputs a string timestamp of a date  // yyyy-mm-dd hh:mm
-  var yyyy = this.getFullYear().toString();
-  var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-  var dd  = this.getDate().toString();
-  var h = this.getFullHours().toString();
-  var m = this.getFullMinutes().toString();
-  return yyyy +'-'+ (mm[1]?mm:"0"+mm[0]) +'-'+ (dd[1]?dd:"0"+dd[0]) +' '+h+':'+m; // padding
-};
-Date.prototype.getFullMinutes = function () {  // if min single diget add a 0
-  if (this.getMinutes() < 10) {
-    return '0' + this.getMinutes();
-  }
-  return this.getMinutes();
-};
-Date.prototype.getFullMonth = function(){  // if month single diget add a 0
-  if (this.getMonth() < 9) {
-    return '0' + (1 + this.getMonth());
-  }
-  return 1 + this.getMonth();
-};
-Date.prototype.getFullHours = function(){  // if hour single diget add a 0
-  if (this.getHours() < 10) {
-    return '0' + this.getHours();
-  }
-  return this.getHours();
-};
-Date.prototype.getFullDate = function(){  // if date single diget add a 0
-  if (this.getDate() < 10) {
-    return '0' + this.getDate();
-  }
-  return this.getDate();
-};
-Date.prototype.getPreviousDate = function(i){
-  return new Date(new Date().setDate(new Date().getDate()-i));
-};
+
 
 // global variables
 debugFlag = false;
 
-describe('log()', function(){
-  it('should append to log file', function(done){
-    u.log('test', function(err){
-      expect(err).not.toBe(null);
-      done();
+describe('logging', function(){
+  describe('log()', function(){
+    it('should append to log file', function(done){
+      u.log('test', function(err){
+        expect(err).not.toBe(null);
+        done();
+      });
+    });
+  });
+
+  describe('error()', function(){
+    it('should append to error file', function(done){
+      u.error('test', function(err){
+        expect(err).not.toBe(null);
+        done();
+      });
     });
   });
 });
 
-describe('error()', function(){
-  it('should append to error file', function(done){
-    u.error('test', function(err){
-      expect(err).not.toBe(null);
-      done();
+describe('date functions', function(){
+  describe('getFullMinutes()', function(){
+    it('should return minutes in new Date() in 01 format', function(done){
+      u.getFullMinutes(function(m){
+        expect(m).not.toBe(null);
+        done();
+      });
+    });
+  });
+
+  describe('getFullMonth()', function(){
+    it('should return month in new Date() in 01 format', function(done){
+      u.getFullMonth(function(m){
+        expect(m).not.toBe(null);
+        done();
+      });
+    });
+  });
+
+  describe('getFullHours()', function(){
+    it('should return hours in new Date() in 01 format', function(done){
+      u.getFullHours(function(m){
+        expect(m).not.toBe(null);
+        done();
+      });
+    });
+  });
+
+  describe('getFullDate()', function(){
+    it('should return date in new Date() in 01 format', function(done){
+      u.getFullDate(function(m){
+        expect(m).not.toBe(null);
+        done();
+      });
+    });
+  });
+
+  describe('getPreviousDate()', function(){
+    it('should return date obj os -x day', function(done){
+      u.getPreviousDate(2,function(m){
+        expect(m).not.toBe(null);
+        done();
+      });
+    });
+  });
+
+  describe('timeStamp()', function(){
+    it('should return timeStamp', function(done){
+      u.timeStamp(function(m){
+        expect(m).not.toBe(null);
+        done();
+      });
+    });
+  });
+
+  describe('dateStamp()', function(){
+    it('should return dateStamp', function(done){
+      u.dateStamp(function(m){
+        expect(m).not.toBe(null);
+        done();
+      });
     });
   });
 });
