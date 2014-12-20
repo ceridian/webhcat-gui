@@ -1,4 +1,5 @@
 var u = require('./lib/util.js');
+var l = require('./lib/lib.js');
 
 debugFlag = 'true';
 
@@ -39,8 +40,8 @@ debugFlag = 'true';
 // };
 
 function start(){
-  u.getPreviousDate(4, function(d){
-    console.log(d);
+  l.hostStatus( function(){
+    console.log('done');
   });
 }
 start();
