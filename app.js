@@ -10,9 +10,15 @@ var session = require('express-session');
 var app = express();
 
 // routes
-var routes = require('./routes/index');
+var index = require('./routes/index');
+var hosts = require('./routes/hosts');
+var hostStatus = require('/routes/hostStatus');
+var statusDump = require('/routes/statusDump');
 
-app.use('/', routes);
+app.use('/', index);
+app.use('/hosts', hosts);
+app.use('/hostStatus', hostStatus);
+app.use('/statusDump', statusDump);
 
 // settings
 app.use(logger('dev'));
