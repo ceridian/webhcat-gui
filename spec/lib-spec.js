@@ -37,3 +37,13 @@ describe('ping()', function(){
 		});
 	});
 });
+
+describe('hostStatus()', function(){
+	it('should return an object', function(done){
+		l.hostStatus(function(err, res){
+			expect(err).toBe(null);
+			expect(res).not.toBe(null);
+			done();
+		});
+	});
+});

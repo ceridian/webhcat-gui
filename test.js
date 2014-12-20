@@ -40,8 +40,8 @@ debugFlag = 'true';
 // };
 
 function start(){
-  l.hostStatus( function(){
-    console.log('done');
+  l.hostStatus( function(err, res){
+    console.log(err, res);
   });
 }
 start();
