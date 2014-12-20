@@ -12,13 +12,15 @@ var app = express();
 // routes
 var index = require('./routes/index');
 var hosts = require('./routes/hosts');
-var hostStatus = require('/routes/hostStatus');
-var statusDump = require('/routes/statusDump');
+var hostStatus = require('./routes/hostStatus');
+var statusDump = require('./routes/statusDump');
+var login = require('./routes/login');
 
 app.use('/', index);
 app.use('/hosts', hosts);
 app.use('/hostStatus', hostStatus);
 app.use('/statusDump', statusDump);
+app.use('/login', login);
 
 // settings
 app.use(logger('dev'));

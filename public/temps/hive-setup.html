@@ -1,0 +1,17 @@
+<div>
+	<h4> Hive </h4>
+	<div style="margin:10px 0 30px 0; padding:10px; background-color:#EEEEEE; border-radius:5px; font:12px Tahoma;">
+		<span><b>Selected Node</b> : {{selected}}</span>
+	</div>
+	<h5> Databases </h5>
+	<ul>
+		<li ng-repeat="d in hive">
+			<div id="{{d.name}}">
+				<span class="dbClose">
+					<img  src="{{d.pic}}"/>
+					{{d.name}}
+				</span>
+			</div>
+		</li>
+	</ul>
+</div>
