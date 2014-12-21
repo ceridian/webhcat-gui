@@ -1,5 +1,8 @@
 var u = require('./lib/util.js');
 var l = require('./lib/lib.js');
+var models = require('./models');
+var async = require('async');
+var a = require('./lib/auth.js');
 
 debugFlag = 'true';
 
@@ -40,8 +43,8 @@ debugFlag = 'true';
 // };
 
 function start(){
-  l.status( function(err, res){
-    console.log(err, res);
+  l.configs(function(err, res){
+    console.log(err, res.webhcat_host.value.current.ipAddr);
   });
 }
 start();

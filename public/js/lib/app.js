@@ -126,7 +126,7 @@
 			var xAxis = d3.svg.axis()
 				.scale(x)
 				.orient("bottom")
-				.ticks(d3.time.hours);
+				.ticks(d3.time.days);
 				//.ticks(10);
 
 			var yAxis = d3.svg.axis()
@@ -201,7 +201,7 @@
 		$http.get('/dbs').success(function(data){
 			console.log(data);
 			var hold = [];
-			data.databases.forEach(function(v){
+			data.forEach(function(v){
 				var obj = {};
 				obj.name = v;
 				obj.pic = 'css/png/glyphicons_141_database_plus.png';
