@@ -38,25 +38,9 @@
 		$locationProvider.html5Mode(true);
 	} ]);
 
-	/*app.run(function($rootScope, $location){
-		$rootScope.$on('$routeChangeStart', function(event, next, current){
-			if (!$rootScope.loggedInUser) {
-				console.log($rootScope.loggedInUser);
-				if ( next.templateUrl === "temps/login-setup.html") {
-					console.log('login');
-				}else{
-					console.log('not login');
-					$location.path('/app/jobs');
-					if(!$rootScope.$$phase) $rootScope.$apply();
-				}
-			}
-		});
-	});*/
-
 	app.run(function($rootScope, $location){
 		$rootScope.$watch(function(){ return $location.path(); }, function(newVal, oldVal){
 			if (!$rootScope.loggedInUser && newVal != '/login'){
-				console.log('redirected');
 				$location.path('/login');
 			}
 		});
@@ -200,17 +184,47 @@
 
 		$http.get('/dbs').success(function(data){
 			console.log(data);
-			var hold = [];
+			//var hold = [];
+			// data.forEach(function(v){
+			// 	var obj = {};
+			// 	obj.name = v;
+			// 	//obj.pic = 'css/png/glyphicons_141_database_plus.png';
+			// 	hold.push(obj);
+			// });
+			//$scope.hive = hold;
 			data.forEach(function(v){
-				var obj = {};
-				obj.name = v;
-				obj.pic = 'css/png/glyphicons_141_database_plus.png';
-				hold.push(obj);
+				$scope[v] = false;
+
 			});
-			$scope.hive = hold;
+			$scope.hive = data;
 		}).error(function(data){
 			console.log(data);
 		});
+		$scope.open = 'css/png/glyphicons_141_database_plus.png';
+		$scope.close = 'css/png/glyphicons_142_database_minus.png';
+
+		// $scope.class = "dbClose";
+		//
+		// $scope.clicked = function(data){
+		// 	console.log(data);
+		// 	if($scope.class == "dbClose"){
+		// 		$scope.class = "dbOpen";
+		// 	}else{
+		// 		$scope.class = "dbClose";
+		// 	}
+		// };
+
+		$scope.clicked = function(data){
+			console.log(data);
+			console.log($scope[data]);
+			if($scope[data] == false){
+				console.log('true');
+				$scope[data] = true;
+			}else{
+				console.log('false');
+				$scope[data] = false;
+			}
+		}
 	}]);
 
 	app.controller('JobsSetup', function(){

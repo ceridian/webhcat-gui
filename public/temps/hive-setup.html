@@ -4,14 +4,23 @@
 		<span><b>Selected Node</b> : {{selected}}</span>
 	</div>
 	<h5> Databases </h5>
-	<ul>
-		<li ng-repeat="d in hive">
-			<div id="{{d.name}}">
-				<span class="dbClose">
-					<img  src="{{d.pic}}"/>
-					{{d.name}}
-				</span>
-			</div>
-		</li>
-	</ul>
+	<div class="tree">
+		<ul>
+			<li ng-repeat="d in hive">
+				<div>
+					<span id="{{d}}" ng-click="clicked(d)">
+						<div ng-switch on="{{d}}">
+							<div ng-switch-when=true>
+								<img ng-src="css/png/glyphicons_142_database_minus.png"></img>
+							</div>
+							<div ng-switch-when=false>
+								<img ng-src="css/png/glyphicons_141_database_plus.png"></img>
+							</div>
+						</div>
+						{{d}}
+					</span>
+				</div>
+			</li>
+		</ul>
+	</div>
 </div>

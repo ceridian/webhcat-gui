@@ -112,8 +112,13 @@
     border:1px solid #94a0b4;
     color:#000
 }
-
 .box {
   margin-right: 5px !important;
   margin-top: 9px !important;
+}
+.dbOpen>img {
+  content:url(png/glyphicons_142_database_minus.png);
+}
+.dbClose>img {
+  content:url(png/glyphicons_141_database_plus.png);
 }
