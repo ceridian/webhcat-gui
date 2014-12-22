@@ -184,47 +184,57 @@
 
 		$http.get('/dbs').success(function(data){
 			console.log(data);
-			//var hold = [];
-			// data.forEach(function(v){
-			// 	var obj = {};
-			// 	obj.name = v;
-			// 	//obj.pic = 'css/png/glyphicons_141_database_plus.png';
-			// 	hold.push(obj);
-			// });
-			//$scope.hive = hold;
+
+			var hold = {};
 			data.forEach(function(v){
 				$scope[v] = false;
-
+				//$scope[v+'Tables'] = [];
+				var obj = {};
+				obj.name = v;
+				obj.children = {};
+				hold[v] = obj;
 			});
-			$scope.hive = data;
+			$scope.hive = hold;
 		}).error(function(data){
 			console.log(data);
 		});
-		$scope.open = 'css/png/glyphicons_141_database_plus.png';
-		$scope.close = 'css/png/glyphicons_142_database_minus.png';
-
-		// $scope.class = "dbClose";
-		//
-		// $scope.clicked = function(data){
-		// 	console.log(data);
-		// 	if($scope.class == "dbClose"){
-		// 		$scope.class = "dbOpen";
-		// 	}else{
-		// 		$scope.class = "dbClose";
-		// 	}
-		// };
 
 		$scope.clicked = function(data){
-			console.log(data);
-			console.log($scope[data]);
-			if($scope[data] == false){
+			var db = data.name;
+			if($scope[db] == false){
 				console.log('true');
-				$scope[data] = true;
+				$scope[db] = true;
+
+				$http.post('/tables', {db: db}).success(function(tables){
+					var hold = {};
+					console.log(tables);
+					if(tables){
+						var hold = {};
+						tables.forEach(function(v){
+							var obj = {};
+							obj.name = v;
+							obj.columns = {};
+							$scope[db+'_'+v] = false;
+							hold[v] = obj;
+						});
+						$scope.hive[db].children = hold;
+					}else{
+						$scope.hive[db].children = {Empty: {name: 'Empty'}};
+					}
+				}).error(function(err){
+					console.log(err);
+				});
 			}else{
 				console.log('false');
-				$scope[data] = false;
+				$scope[db] = false;
 			}
-		}
+		};
+
+		$scope.table = function(d, t){
+			var db = d.name;
+			var tab = t.name;
+			console.log(db, tab);
+		};
 	}]);
 
 	app.controller('JobsSetup', function(){

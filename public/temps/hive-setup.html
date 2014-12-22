@@ -8,17 +8,16 @@
 		<ul>
 			<li ng-repeat="d in hive">
 				<div>
-					<span id="{{d}}" ng-click="clicked(d)">
-						<div ng-switch on="{{d}}">
-							<div ng-switch-when=true>
-								<img ng-src="css/png/glyphicons_142_database_minus.png"></img>
-							</div>
-							<div ng-switch-when=false>
-								<img ng-src="css/png/glyphicons_141_database_plus.png"></img>
-							</div>
-						</div>
-						{{d}}
+					<span ng-click="clicked(d)" ng-switch on="{{d.name}}">
+						<img ng-switch-when=true ng-src="css/png/glyphicons_142_database_minus.png"></img>
+						<img ng-switch-when=false ng-src="css/png/glyphicons_141_database_plus.png"></img>
+						{{d.name}}
 					</span>
+					<ul id="{{d.name}}" ng-show="{{d.name}}">
+						<li ng-repeat="t in d.children">
+							<span ng-click="table(d, t)">{{t.name}}</span>
+						</li>
+					</ul>
 				</div>
 			</li>
 		</ul>

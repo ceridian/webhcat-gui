@@ -5,7 +5,7 @@ var l = require('../lib/lib.js');
 var a = require('../lib/auth.js');
 
 router.post('/', function(req, res) {
-  var body = req.body;
+  var body = req.body.db;
   l.tables(body, function(err, conf){
     if(err){
       res.msg(err);
