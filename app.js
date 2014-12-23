@@ -36,6 +36,7 @@ var dbs = require('./routes/dbs');
 var tables = require('./routes/tables');
 var configs = require('./routes/configs');
 var users = require('./routes/users');
+var columns = require('./routes/columns');
 
 app.use('/', index);
 app.use('/hosts', hosts);
@@ -46,6 +47,7 @@ app.use('/dbs', dbs);
 app.use('/tables', tables);
 app.use('/configs', configs);
 app.use('/users', users);
+app.use('/columns', columns);
 
 // error handlers
 

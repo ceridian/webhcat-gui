@@ -201,6 +201,7 @@
 
 		$scope.clicked = function(data){
 			var db = data.name;
+			$scope.selected = db;
 			if($scope[db] == false){
 				console.log('true');
 				$scope[db] = true;
@@ -233,7 +234,28 @@
 		$scope.table = function(d, t){
 			var db = d.name;
 			var tab = t.name;
+			$scope.selected = db+'_'+tab;
 			console.log(db, tab);
+			$http.post('/columns', {db: db, tab: tab}).success(function(cols){
+				console.log(cols);
+				$scope.columns = cols.columns;
+				var keys = Object.keys(cols);
+				console.log(keys);
+				var hold = [];
+				keys.forEach(function(v){
+					if(v == 'columns'){
+
+					}else{
+						var obj = {};
+						obj.key = v;
+						obj.value = cols[v];
+						hold.push(obj);
+					}
+				});
+				$scope.info = hold;
+			}).error(function(err){
+				console.log(err);
+			});
 		};
 	}]);
 

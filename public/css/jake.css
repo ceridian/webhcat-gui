@@ -64,6 +64,12 @@
     -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
     box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05)
 }
+.tree {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 100%;
+  padding-left: 0px;
+}
 .tree li {
     list-style-type:none;
     margin:0;
@@ -121,4 +127,43 @@
 }
 .dbClose>img {
   content:url(png/glyphicons_141_database_plus.png);
+}
+.columns {
+  width: 20%;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
+  float: right;
+}
+.info {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+table.basicTable {
+  font-family: verdana,arial,sans-serif;
+  font-size:11px;
+  color:#333333;
+  border-width: 1px;
+  border-color: #666666;
+  border-collapse: collapse;
+}
+table.basicTable th {
+  border-width: 1px;
+  padding: 8px;
+  border-style: solid;
+  border-color: #666666;
+  background-color: #dedede;
+}
+table.basicTable td {
+  border-width: 1px;
+  padding: 8px;
+  border-style: solid;
+  border-color: #666666;
+  background-color: #ffffff;
+}
+
+.container {
+  position: absolute;
+  width: 100%;
 }

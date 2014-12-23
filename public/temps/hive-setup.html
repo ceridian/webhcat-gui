@@ -3,23 +3,61 @@
 	<div style="margin:10px 0 30px 0; padding:10px; background-color:#EEEEEE; border-radius:5px; font:12px Tahoma;">
 		<span><b>Selected Node</b> : {{selected}}</span>
 	</div>
-	<h5> Databases </h5>
-	<div class="tree">
-		<ul>
-			<li ng-repeat="d in hive">
-				<div>
-					<span ng-click="clicked(d)" ng-switch on="{{d.name}}">
-						<img ng-switch-when=true ng-src="css/png/glyphicons_142_database_minus.png"></img>
-						<img ng-switch-when=false ng-src="css/png/glyphicons_141_database_plus.png"></img>
-						{{d.name}}
-					</span>
-					<ul id="{{d.name}}" ng-show="{{d.name}}">
-						<li ng-repeat="t in d.children">
-							<span ng-click="table(d, t)">{{t.name}}</span>
-						</li>
-					</ul>
-				</div>
-			</li>
-		</ul>
+	<div class="container">
+		<div style="float:left;">
+			<h5> Databases </h5>
+			<div class="tree">
+				<ul>
+					<li ng-repeat="d in hive">
+						<div>
+							<span ng-click="clicked(d)" ng-switch on="{{d.name}}">
+								<img ng-switch-when=true ng-src="css/png/glyphicons_142_database_minus.png"></img>
+								<img ng-switch-when=false ng-src="css/png/glyphicons_141_database_plus.png"></img>
+								{{d.name}}
+							</span>
+							<ul id="{{d.name}}" ng-show="{{d.name}}">
+								<li ng-repeat="t in d.children">
+									<span ng-click="table(d, t)">{{t.name}}</span>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class='columns'>
+			<h5>Columns</h5>
+			<table style="width:100%;" class="basicTable">
+				<thead>
+					<tr>
+						<td>Name</td>
+						<td>Type</td>
+					</tr>
+				</thead>
+				<tbody ng-repeat="r in columns">
+					<tr>
+						<td>{{r.name}}</td>
+						<td>{{r.type}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="info">
+			<h5>Table Info</h5>
+			<table style="width:100%;" class="basicTable">
+				<thead>
+					<tr>
+						<td>Setting</td>
+						<td>Value</td>
+					</tr>
+				</thead>
+				<tbody ng-repeat="r in info">
+					<tr>
+						<td>{{r.key}}</td>
+						<td>{{r.value}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
