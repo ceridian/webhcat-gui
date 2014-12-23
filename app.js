@@ -49,11 +49,25 @@ app.use('/configs', configs);
 app.use('/users', users);
 app.use('/columns', columns);
 
+app.get('/404', function(req, res, next){
+  next();
+});
+
+// 404
+
+app.use(function(req, res, next){
+  res.redirect('/');
+});
+
 // error handlers
 
 app.use(function(err, req, res, next) {
-	res.status(err.status || 500);
-	res.send(err);
+  if(err){
+  	res.status(err.status || 500);
+  	res.send(err);
+  }else{
+    res.redirect('/');
+  }
 });
 
 module.exports = app;
