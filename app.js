@@ -37,6 +37,8 @@ var tables = require('./routes/tables');
 var configs = require('./routes/configs');
 var users = require('./routes/users');
 var columns = require('./routes/columns');
+var jobs = require('./routes/jobs');
+var jobDetail = require('./routes/jobDetail');
 
 app.use('/', index);
 app.use('/hosts', hosts);
@@ -48,6 +50,8 @@ app.use('/tables', tables);
 app.use('/configs', configs);
 app.use('/users', users);
 app.use('/columns', columns);
+app.use('/jobs', jobs);
+app.use('/jobDetail', jobDetail);
 
 app.get('/404', function(req, res, next){
   next();

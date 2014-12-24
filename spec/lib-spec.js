@@ -3,6 +3,8 @@ var l = require('../lib/lib.js');
 // global variables
 debugFlag = false;
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+
 describe('configs()', function(){
 	it('should return config object', function(done){
 		l.configs(function(err, res){
@@ -48,12 +50,72 @@ describe('hostStatus()', function(){
 	});
 });
 
-describe('status()', function(){
+describe('statusDump()', function(){
 	it('should return all status pings from db', function(done){
-		l.status(function(err, res){
+		l.statusDump(function(err, res){
 			expect(err).toBe(null);
 			expect(res).not.toBe(null);
 			done();
 		});
 	});
-})
+});
+
+describe('dbs()', function(){
+	it('should return array of dbs', function(done){
+		l.dbs(function(err, res){
+			expect(err).toBe(null);
+			expect(res).not.toBe(null);
+			done();
+		});
+	});
+});
+
+describe('tables()', function(){
+	it('should return array of tables', function(done){
+		l.tables(function(err, res){
+			expect(err).not.toBe(null);
+			expect(res).toBe(null);
+			done();
+		});
+	});
+});
+
+describe('columns()', function(){
+	it('should return columns of table', function(done){
+		l.columns(function(err, res){
+			expect(err).not.toBe(null);
+			expect(res).toBe(null);
+			done();
+		});
+	});
+});
+
+describe('users()', function(){
+	it('should return array of users', function(done){
+		l.users(function(err, res){
+			expect(err).toBe(null);
+			expect(res).not.toBe(null);
+			done();
+		});
+	});
+});
+
+describe('jobs()', function(){
+	it('should return job history', function(done){
+		l.jobs(function(err, res){
+			expect(err).toBe(null);
+			expect(res).not.toBe(null);
+			done();
+		});
+	});
+});
+
+describe('jobDetail()', function(){
+	it('should return details of a job', function(done){
+		l.jobDetail(function(err, res){
+			expect(err).not.toBe(null);
+			expect(res).toBe(null);
+			done();
+		});
+	});
+});
