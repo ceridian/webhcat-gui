@@ -1,0 +1,240 @@
+curl "http://192.168.1.175:50111/templeton/v1/jobs?user.name=hdfs&showall=true&fields=*"
+
+[
+    {
+        "id": "job_1419394971452_0004",
+        "detail": {
+            "status": {
+                "mapProgress": 1,
+                "reduceProgress": 1,
+                "cleanupProgress": 0,
+                "setupProgress": 0,
+                "runState": 2,
+                "startTime": 0,
+                "queue": "default",
+                "priority": "NORMAL",
+                "schedulingInfo": "NA",
+                "failureInfo": "NA",
+                "jobACLs": {},
+                "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000000-141223232612824-oozie-oozi-W",
+                "jobFile": "hdfs://ambari.jake-net.local:8020/mr-history/done/2014/12/23/000000/job_1419394971452_0004_conf.xml",
+                "finishTime": 0,
+                "historyFile": "",
+                "trackingUrl": "ambari.jake-net.local:19888/jobhistory/job/job_1419394971452_0004",
+                "numUsedSlots": 0,
+                "numReservedSlots": 0,
+                "usedMem": 0,
+                "reservedMem": 0,
+                "neededMem": 0,
+                "jobID": {
+                    "id": 4,
+                    "jtIdentifier": "1419394971452"
+                },
+                "jobPriority": "NORMAL",
+                "username": "ambari-qa",
+                "jobId": "job_1419394971452_0004",
+                "state": "SUCCEEDED",
+                "jobComplete": true,
+                "retired": false,
+                "uber": false
+            },
+            "profile": {
+                "user": "ambari-qa",
+                "jobFile": "hdfs://ambari.jake-net.local:8020/mr-history/done/2014/12/23/000000/job_1419394971452_0004_conf.xml",
+                "url": null,
+                "queueName": "default",
+                "jobID": {
+                    "id": 4,
+                    "jtIdentifier": "1419394971452"
+                },
+                "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000000-141223232612824-oozie-oozi-W",
+                "jobId": "job_1419394971452_0004"
+            },
+            "id": "job_1419394971452_0004",
+            "parentId": null,
+            "percentComplete": null,
+            "exitValue": null,
+            "user": null,
+            "callback": null,
+            "completed": null,
+            "userargs": {}
+        }
+    },
+    {
+        "id": "job_1419394971452_0003",
+        "detail": {
+            "status": {
+                "mapProgress": 1,
+                "reduceProgress": "NaN",
+                "cleanupProgress": 0,
+                "setupProgress": 0,
+                "runState": 2,
+                "startTime": 0,
+                "queue": "default",
+                "priority": "NORMAL",
+                "schedulingInfo": "NA",
+                "failureInfo": "NA",
+                "jobACLs": {},
+                "jobName": "oozie:launcher:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000000-141223232612824-oozie-oozi-W",
+                "jobFile": "hdfs://ambari.jake-net.local:8020/mr-history/done/2014/12/23/000000/job_1419394971452_0003_conf.xml",
+                "finishTime": 0,
+                "historyFile": "",
+                "trackingUrl": "ambari.jake-net.local:19888/jobhistory/job/job_1419394971452_0003",
+                "numUsedSlots": 0,
+                "numReservedSlots": 0,
+                "usedMem": 0,
+                "reservedMem": 0,
+                "neededMem": 0,
+                "jobID": {
+                    "id": 3,
+                    "jtIdentifier": "1419394971452"
+                },
+                "jobPriority": "NORMAL",
+                "username": "ambari-qa",
+                "jobId": "job_1419394971452_0003",
+                "state": "SUCCEEDED",
+                "jobComplete": true,
+                "retired": false,
+                "uber": false
+            },
+            "profile": {
+                "user": "ambari-qa",
+                "jobFile": "hdfs://ambari.jake-net.local:8020/mr-history/done/2014/12/23/000000/job_1419394971452_0003_conf.xml",
+                "url": null,
+                "queueName": "default",
+                "jobID": {
+                    "id": 3,
+                    "jtIdentifier": "1419394971452"
+                },
+                "jobName": "oozie:launcher:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000000-141223232612824-oozie-oozi-W",
+                "jobId": "job_1419394971452_0003"
+            },
+            "id": "job_1419394971452_0003",
+            "parentId": null,
+            "percentComplete": null,
+            "exitValue": null,
+            "user": null,
+            "callback": null,
+            "completed": null,
+            "userargs": {}
+        }
+    },
+    {
+        "id": "job_1419394971452_0002",
+        "detail": {
+            "status": {
+                "mapProgress": 1,
+                "reduceProgress": 1,
+                "cleanupProgress": 0,
+                "setupProgress": 0,
+                "runState": 2,
+                "startTime": 0,
+                "queue": "default",
+                "priority": "NORMAL",
+                "schedulingInfo": "NA",
+                "failureInfo": "NA",
+                "jobACLs": {},
+                "jobName": "word count",
+                "jobFile": "hdfs://ambari.jake-net.local:8020/mr-history/done/2014/12/23/000000/job_1419394971452_0002_conf.xml",
+                "finishTime": 0,
+                "historyFile": "",
+                "trackingUrl": "ambari.jake-net.local:19888/jobhistory/job/job_1419394971452_0002",
+                "numUsedSlots": 0,
+                "numReservedSlots": 0,
+                "usedMem": 0,
+                "reservedMem": 0,
+                "neededMem": 0,
+                "jobID": {
+                    "id": 2,
+                    "jtIdentifier": "1419394971452"
+                },
+                "jobPriority": "NORMAL",
+                "username": "ambari-qa",
+                "jobId": "job_1419394971452_0002",
+                "state": "SUCCEEDED",
+                "jobComplete": true,
+                "retired": false,
+                "uber": false
+            },
+            "profile": {
+                "user": "ambari-qa",
+                "jobFile": "hdfs://ambari.jake-net.local:8020/mr-history/done/2014/12/23/000000/job_1419394971452_0002_conf.xml",
+                "url": null,
+                "queueName": "default",
+                "jobID": {
+                    "id": 2,
+                    "jtIdentifier": "1419394971452"
+                },
+                "jobName": "word count",
+                "jobId": "job_1419394971452_0002"
+            },
+            "id": "job_1419394971452_0002",
+            "parentId": null,
+            "percentComplete": null,
+            "exitValue": null,
+            "user": null,
+            "callback": null,
+            "completed": null,
+            "userargs": {}
+        }
+    },
+    {
+        "id": "job_1419394971452_0001",
+        "detail": {
+            "status": {
+                "mapProgress": 1,
+                "reduceProgress": "NaN",
+                "cleanupProgress": 0,
+                "setupProgress": 0,
+                "runState": 2,
+                "startTime": 0,
+                "queue": "default",
+                "priority": "NORMAL",
+                "schedulingInfo": "NA",
+                "failureInfo": "NA",
+                "jobACLs": {},
+                "jobName": "PigLatin:pigSmoke.sh",
+                "jobFile": "hdfs://ambari.jake-net.local:8020/mr-history/done/2014/12/23/000000/job_1419394971452_0001_conf.xml",
+                "finishTime": 0,
+                "historyFile": "",
+                "trackingUrl": "ambari.jake-net.local:19888/jobhistory/job/job_1419394971452_0001",
+                "numUsedSlots": 0,
+                "numReservedSlots": 0,
+                "usedMem": 0,
+                "reservedMem": 0,
+                "neededMem": 0,
+                "jobID": {
+                    "id": 1,
+                    "jtIdentifier": "1419394971452"
+                },
+                "jobPriority": "NORMAL",
+                "username": "ambari-qa",
+                "jobId": "job_1419394971452_0001",
+                "state": "SUCCEEDED",
+                "jobComplete": true,
+                "retired": false,
+                "uber": false
+            },
+            "profile": {
+                "user": "ambari-qa",
+                "jobFile": "hdfs://ambari.jake-net.local:8020/mr-history/done/2014/12/23/000000/job_1419394971452_0001_conf.xml",
+                "url": null,
+                "queueName": "default",
+                "jobID": {
+                    "id": 1,
+                    "jtIdentifier": "1419394971452"
+                },
+                "jobName": "PigLatin:pigSmoke.sh",
+                "jobId": "job_1419394971452_0001"
+            },
+            "id": "job_1419394971452_0001",
+            "parentId": null,
+            "percentComplete": null,
+            "exitValue": null,
+            "user": null,
+            "callback": null,
+            "completed": null,
+            "userargs": {}
+        }
+    }
+]

@@ -8,4 +8,8 @@ ToDo:
   3. logging functions
   4. clean and move angular front end
   5. finish up hive treeview
-  
+
+
+Requirments:
+  1. webhcat
+  2. hive 0.12 <

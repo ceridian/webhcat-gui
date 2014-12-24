@@ -46,8 +46,9 @@
 		});
 	});
 
-	app.controller('MainCtrl', ['$route', '$routeParams', '$location', function($route, $routeParams, $location){
-		console.log($route);
+	app.controller('MainCtrl', ['$scope', function($scope){
+		$scope.$on('LOAD', function(){$scope.loading=true});
+		$scope.$on('UNLOAD', function(){$scope.loading=false});
 	} ]);
 
 	app.controller('LoginSetup', ['$http', '$rootScope', '$location', function($http, $rootScope, $location){
@@ -181,10 +182,10 @@
 
 	app.controller('HiveSetup', ['$scope', '$http', function($scope, $http){
 		this.name = 'Hive';
-
+		$scope.$emit('LOAD');
 		$http.get('/dbs').success(function(data){
 			console.log(data);
-
+			$scope.$emit('UNLOAD');
 			var hold = {};
 			data.forEach(function(v){
 				$scope[v] = false;
@@ -205,9 +206,10 @@
 			if($scope[db] == false){
 				console.log('true');
 				$scope[db] = true;
-
+				$scope.$emit('LOAD');
 				$http.post('/tables', {db: db}).success(function(tables){
 					var hold = {};
+					$scope.$emit('UNLOAD');
 					console.log(tables);
 					if(tables){
 						var hold = {};
@@ -234,10 +236,12 @@
 		$scope.table = function(d, t){
 			var db = d.name;
 			var tab = t.name;
+			$scope.$emit('LOAD');
 			$scope.selected = db+'_'+tab;
 			console.log(db, tab);
 			$http.post('/columns', {db: db, tab: tab}).success(function(cols){
 				console.log(cols);
+				$scope.$emit('UNLOAD');
 				$scope.columns = cols.columns;
 				var keys = Object.keys(cols);
 				console.log(keys);

@@ -20,6 +20,9 @@
 <body>
 	<div>
 		<div ng-controller="MainCtrl as main">
+			<div class="backDrop" ng-show="loading">
+				<img ng-show="loading" ng-src="css/png/ajax-loader.gif" />
+			</div>
 			<nav role="navigation" class="navbar navbar-inverse">
 				<div class="container-fluid">
 					<div class="navbar-header">
