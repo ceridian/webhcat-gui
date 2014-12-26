@@ -10,14 +10,18 @@
 				<ul>
 					<li ng-repeat="d in hive">
 						<div>
-							<span ng-click="clicked(d)" ng-switch on="{{d.name}}">
-								<img ng-switch-when=true ng-src="css/png/glyphicons_142_database_minus.png"></img>
-								<img ng-switch-when=false ng-src="css/png/glyphicons_141_database_plus.png"></img>
-								{{d.name}}
-							</span>
+							<div style="color: blue; width: 100%; height: 100%;">
+								<span ng-click="clicked(d)" class="treeDB" ng-switch on="{{d.name}}">
+									<img ng-switch-when=true ng-src="css/png/glyphicons_142_database_minus.png"></img>
+									<img ng-switch-when=false ng-src="css/png/glyphicons_141_database_plus.png"></img>
+									{{d.name}}
+								</span>
+							</div>
 							<ul id="{{d.name}}" ng-show="{{d.name}}">
 								<li ng-repeat="t in d.children">
-									<span ng-click="table(d, t)">{{t.name}}</span>
+									<div style="color: blue; width: 100%; height: 100%;">
+										<span ng-click="table(d, t)" class="treeTable">{{t.name}}</span>
+									</div>
 								</li>
 							</ul>
 						</div>

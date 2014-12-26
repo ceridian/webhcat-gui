@@ -51,6 +51,21 @@
 		$scope.$on('UNLOAD', function(){$scope.loading=false});
 	} ]);
 
+	app.directive('showonhoverparent',
+		function(){
+			return {
+				link: function(scope, element, attrs){
+					element.parent().bind('mouseenter', function(){
+						element.show();
+					});
+					element.parent().bind('mouseleave', function(){
+						element.hide();
+					});
+				}
+			}
+		}
+	);
+
 	app.controller('LoginSetup', ['$http', '$rootScope', '$location', function($http, $rootScope, $location){
 		this.name = 'Login';
 		this.login = function(main){
@@ -263,9 +278,19 @@
 		};
 	}]);
 
-	app.controller('JobsSetup', function(){
+	app.controller('JobsSetup', ['$scope', '$http', function($scope, $http){
 		this.name = 'Jobs';
-	});
+
+		$http.get('/jobs').success(function(data){
+			$scope.jobs = data;
+			//console.log(data.detail.status.state);
+			// data.forEach(function(v){
+			// 	console.log(v.detail.status.state);
+			// });
+		}).error(function(data){
+			console.log(data);
+		});
+	}]);
 
 	app.controller('SettingsSetup', ['$scope', '$http', function($scope, $http){
 		this.name = 'Settings';
