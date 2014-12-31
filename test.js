@@ -2,49 +2,78 @@ var u = require('./lib/util.js');
 var l = require('./lib/lib.js');
 var models = require('./models');
 var async = require('async');
-var a = require('./lib/auth.js');
+//var a = require('./lib/auth.js');
+var request = require('request');
+
+
+var express = require('express');
+var path = require('path');
+//var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+
+var app = express();
 
 debugFlag = 'true';
 
-// Date.prototype.dateStamp = function() {  // outputs a string timestamp of a date  // yyyy-mm-dd hh:mm
-//   var yyyy = this.getFullYear().toString();
-//   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-//   var dd  = this.getDate().toString();
-//   var h = this.getFullHours().toString();
-//   var m = this.getFullMinutes().toString();
-//   return yyyy +'-'+ (mm[1]?mm:"0"+mm[0]) +'-'+ (dd[1]?dd:"0"+dd[0]) +' '+h+':'+m; // padding
-// };
-// Date.prototype.getFullMinutes = function () {  // if min single diget add a 0
-//   if (this.getMinutes() < 10) {
-//     return '0' + this.getMinutes();
-//   }
-//   return this.getMinutes();
-// };
-// Date.prototype.getFullMonth = function(){  // if month single diget add a 0
-//   if (this.getMonth() < 9) {
-//     return '0' + (1 + this.getMonth());
-//   }
-//   return 1 + this.getMonth();
-// };
-// Date.prototype.getFullHours = function(){  // if hour single diget add a 0
-//   if (this.getHours() < 10) {
-//     return '0' + this.getHours();
-//   }
-//   return this.getHours();
-// };
-// Date.prototype.getFullDate = function(){  // if date single diget add a 0
-//   if (this.getDate() < 10) {
-//     return '0' + this.getDate();
-//   }
-//   return this.getDate();
-// };
-// Date.prototype.getPreviousDate = function(i){
-//   return new Date(new Date().setDate(new Date().getDate()-i));
-// };
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+app.get('/callback/:jobid', function(req, res){
+  var jobid = req.param('jobid');
+  console.log(jobid, 'get: /callback/:jobid');
+  res.send(200);
+});
+
+// function start(){
+//   l.configs(function(err, res){
+//     console.log(err, res.webhcat_host.value.current.ipAddr);
+//   });
+// }
 
 function start(){
-  l.configs(function(err, res){
-    console.log(err, res.webhcat_host.value.current.ipAddr);
+  // l.configs(function(err, conf){
+  //   var targ = conf.webhcat_host.value.current.ipAddr;
+  //   var port = conf.webhcat_port.value;
+  //   var user = conf.query_user.value;
+  //   var cmd = "http://"+targ+":"+port+"/templeton/v1/hive";
+  //   request({
+  //     method: 'POST',
+  //     url: cmd,
+  //     form: {
+  //       'user.name': 'hdfs',
+  //       'execute': "SELECT COUNT(*) FROM testting.people",
+  //       'statusdir': "testting.people",
+  //       'callback': "http://192.168.1.106:3000/callback/$jobId",
+  //     }
+  //   }, function(err, response, body){
+  //     if(err){
+  //       console.log(err, null);
+  //     }else{
+  //       var parsed = JSON.parse(body);
+  //       console.log(parsed);
+  //     }
+  //   });
+  // })
+  // var os = require('os');
+  // var ifaces = os.networkInterfaces();
+  // Object.keys(ifaces).forEach(function (ifname) {
+  //   ifaces[ifname].forEach(function (iface) {
+  //     if ('IPv4' !== iface.family || iface.internal !== false) {
+  //       return;
+  //     }else{
+  //       console.log(iface);
+  //     }
+  //   });
+  // });
+  u.localIP(function(ip){
+    console.log(ip);
   });
 }
 start();
+
+
+//app.listen(3000);

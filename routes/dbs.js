@@ -7,8 +7,8 @@ var a = require('../lib/auth.js');
 router.get('/', a.checkAuth, function(req, res) {
   l.dbs(function(err, conf){
     if(err){
-      res.msg(err);
-      res.send(500);
+      console.log(err);
+      res.status(500).end();
     }else{
       res.send(conf);
     }

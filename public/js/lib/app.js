@@ -215,6 +215,20 @@
 			console.log(data);
 		});
 
+		var editor = ace.edit("editor");
+		editor.getSession().setMode("ace/mode/sql");
+
+		$scope.query = function(){
+			var q = editor.getValue();
+			var str = q.replace(/\ /g, '+');
+			console.log(str);
+			$http.post('/callback', {str: str}).success(function(res){
+				console.log(res);
+			}).error(function(err){
+				console.log(err);
+			});
+		}
+
 		$scope.clicked = function(data){
 			var db = data.name;
 			$scope.selected = db;

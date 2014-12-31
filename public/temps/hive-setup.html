@@ -2,6 +2,7 @@
 	<h4> Hive </h4>
 	<div style="margin:10px 0 30px 0; padding:10px; background-color:#EEEEEE; border-radius:5px; font:12px Tahoma;">
 		<span><b>Selected Node</b> : {{selected}}</span>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#queryModal" style="float: right;">Query</button>
 	</div>
 	<div class="container">
 		<div style="float:left;">
@@ -10,18 +11,14 @@
 				<ul>
 					<li ng-repeat="d in hive">
 						<div>
-							<div style="color: blue; width: 100%; height: 100%;">
-								<span ng-click="clicked(d)" class="treeDB" ng-switch on="{{d.name}}">
-									<img ng-switch-when=true ng-src="css/png/glyphicons_142_database_minus.png"></img>
-									<img ng-switch-when=false ng-src="css/png/glyphicons_141_database_plus.png"></img>
-									{{d.name}}
-								</span>
-							</div>
-							<ul id="{{d.name}}" ng-show="{{d.name}}">
+							<span id="{{d.name}}" ng-click="clicked(d)" class="treeDB" ng-switch on="{{d.name}}">
+								<img ng-switch-when=true ng-src="css/png/glyphicons_142_database_minus.png"></img>
+								<img ng-switch-when=false ng-src="css/png/glyphicons_141_database_plus.png"></img>
+								{{d.name}}
+							</span>
+							<ul ng-show="{{d.name}}">
 								<li ng-repeat="t in d.children">
-									<div style="color: blue; width: 100%; height: 100%;">
-										<span ng-click="table(d, t)" class="treeTable">{{t.name}}</span>
-									</div>
+									<span id="{{d.name}}_{{t.name}}" ng-click="table(d, t)" class="treeTable">{{t.name}}</span>
 								</li>
 							</ul>
 						</div>
@@ -62,6 +59,24 @@
 					</tr>
 				</tbody>
 			</table>
+		</div>
+	</div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="queryModal" tabindex="-1" role="dialog" aria-labelledby="queryLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="queryLabel">Hive Query</h4>
+			</div>
+			<div class="modal-body">
+				<!--<textarea id="queryWidow" style="width:100%;height:500px:" ui-codemirror></textarea>-->
+				<pre id="editor"></pre>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" ng-click="query()">Query</button>
+			</div>
 		</div>
 	</div>
 </div>

@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+var l = require('./lib/lib.js');
 var a = require('./lib/auth.js');
 var app = express();
 
@@ -39,6 +40,7 @@ var users = require('./routes/users');
 var columns = require('./routes/columns');
 var jobs = require('./routes/jobs');
 var jobDetail = require('./routes/jobDetail');
+var callback = require('./routes/callback');
 
 app.use('/', index);
 app.use('/hosts', hosts);
@@ -52,6 +54,7 @@ app.use('/users', users);
 app.use('/columns', columns);
 app.use('/jobs', jobs);
 app.use('/jobDetail', jobDetail);
+app.use('/callback', callback);
 
 app.get('/404', function(req, res, next){
   next();
@@ -73,5 +76,11 @@ app.use(function(err, req, res, next) {
     res.redirect('/');
   }
 });
+
+setInterval(function(){
+  l.hostStatus(function(){
+    return;
+  });
+}, 10000);
 
 module.exports = app;
