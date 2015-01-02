@@ -18,6 +18,10 @@
 	angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
 	</script>
 </head>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var socket = io();
+</script>
 <body>
 	<div>
 		<div ng-controller="MainCtrl as main">

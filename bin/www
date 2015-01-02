@@ -1,33 +1,33 @@
 #!/usr/bin/env node
-// old with https, trying somthing diffrent
-var https = require('https');
+//var https = require('https');
+var http = require('http');
 var fs = require('fs');
 var debug = require('debug')('express-example');
 var app = require('../app');
 var models = require("../models");
+var i = require('../lib/io.js');
+
 
 var options = {
 	key: fs.readFileSync('./server.key'),
 	cert: fs.readFileSync('./server.crt')
 };
 
+connections = {};
+
 models.sequelize.sync().complete(function(err) {
 	if(err){
 		console.log(err);
 	}else{
-		https.createServer(options, app).listen(443);
-		console.log('443');
+		//var server = https.createServer(options, app);
+		var server = http.createServer(app);
+		io = require("socket.io").listen(server);
+		//server.listen(443);
+		server.listen(3000);
+		io.on('connection', function(socket){
+			console.log('connected');
+
+		});
+		console.log('3000');
 	}
 });
-
-// var debug = require('debug')('webhcat-gui');
-// var app = require('../app');
-// var models = require("../models");
-//
-// app.set('port', process.env.PORT || 3000);
-//
-// models.sequelize.sync().then(function () {
-// 	var server = app.listen(app.get('port'), function() {
-// 		debug('Express server listening on port ' + server.address().port);
-// 	});
-// });
