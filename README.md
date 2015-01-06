@@ -3,11 +3,11 @@ Simple webgui for querying hive.
 WIP
 
 ToDo:
-  1. finish cleaning old routes and integrate
-  2. add unit tests for route functions
+  1. clean up notifications
+  2. and job detail view when clicked on
   3. logging functions
   4. clean and move angular front end
-  5. finish up hive treeview
+  5. add zoom function to status graph
 
 
 Requirments:

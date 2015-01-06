@@ -1,6 +1,6 @@
 (function(){
 	'use strict';
-	var app = angular.module('home', ['ngRoute', 'ngAnimate', 'ui.grid']);
+	var app = angular.module('home', ['ngRoute', 'ngAnimate', 'ui.grid', 'growlNotifications']);
 
 	app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
 		$routeProvider
@@ -46,6 +46,30 @@
 		});
 	});
 
+	app.factory('socket', ['$rootScope', function ($rootScope) {
+		var socket = io.connect();
+		return {
+			on: function (eventName, callback) {
+				socket.on(eventName, function () {
+					var args = arguments;
+					$rootScope.$apply(function () {
+						callback.apply(socket, args);
+					});
+				});
+			},
+			emit: function (eventName, data, callback) {
+				socket.emit(eventName, data, function () {
+					var args = arguments;
+					$rootScope.$apply(function () {
+						if (callback) {
+							callback.apply(socket, args);
+						}
+					});
+				})
+			}
+		};
+	}]);
+
 	app.controller('MainCtrl', ['$scope', function($scope){
 		$scope.$on('LOAD', function(){$scope.loading=true});
 		$scope.$on('UNLOAD', function(){$scope.loading=false});
@@ -65,6 +89,13 @@
 			}
 		}
 	);
+
+	app.controller('notifications', ['$scope', 'socket', function($scope, socket){
+		$scope.notes = [];
+		socket.on('alert', function(msg){
+			$scope.notes.push(msg);
+		});
+	}]);
 
 	app.controller('LoginSetup', ['$http', '$rootScope', '$location', function($http, $rootScope, $location){
 		this.name = 'Login';

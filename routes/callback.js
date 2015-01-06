@@ -7,7 +7,7 @@ var i = require('../lib/io.js');
 router.get('/:jobid', function(req, res) {
   var jobid = req.param('jobid');
   console.log(jobid, 'get: /callback/:jobid');
-  i.alert(jobid);
+  i.alert(jobid, 'query done');
   res.status(200).end();
 });
 

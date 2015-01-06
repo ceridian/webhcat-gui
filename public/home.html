@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/angular-route.js"></script>
 	<script type="text/javascript" src="js/angular-animate.js"></script>
+	<script type="text/javascript" src="js/angular-growl-notifications.js"></script>
 	<script type="text/javascript" src="js/ace/src-noconflict/ace.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/ui-grid-stable.js"></script>
@@ -19,9 +20,6 @@
 	</script>
 </head>
 <script src="/socket.io/socket.io.js"></script>
-<script>
-var socket = io();
-</script>
 <body>
 	<div>
 		<div ng-controller="MainCtrl as main">
@@ -61,6 +59,16 @@ var socket = io();
 				<div ng-view class="view-animate"></div>
 			</div>
 		</div>
+		<growl-notifications>
+			<div ng-controller="notifications">
+				<div ng-repeat="n in notes">
+					<growl-notification>
+						<p>{{n.type}}</p>
+						<p>{{n.msg}}</p>
+					</grow-notification>
+				</div>
+			</div>
+		</growl-notifications>
 	</div>
 </body>
 </html>
