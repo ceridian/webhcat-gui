@@ -3,7 +3,7 @@ var l = require('../lib/lib.js');
 // global variables
 debugFlag = false;
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 describe('configs()', function(){
 	it('should return config object', function(done){
@@ -24,10 +24,6 @@ describe('hosts()', function(){
 		});
 	});
 });
-
-/*
-{delay: '', state: '', createdAt: '', updatedAt: '', HOSTId: ''}
-*/
 
 describe('ping()', function(){
 	it('should return a ping object', function(done){

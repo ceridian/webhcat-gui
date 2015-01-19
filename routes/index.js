@@ -5,7 +5,8 @@ var a = require('../lib/auth.js');
 var a = require('../lib/auth.js');
 
 router.get('/', function(req, res) {
-	res.sendFile(path.join(__dirname, '../public', 'home.html'));
+	//res.sendFile(path.join(__dirname, '../public', 'home.html'));
+	res.redirect('/login');
 });
 
 module.exports = router;

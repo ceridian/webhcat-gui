@@ -3,6 +3,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/jake.css" />
+	<link rel="stylesheet" type="text/css" href="css/animations.css" />
 	<link rel="stylesheet" type="text/css" href="css/ui-grid-stable.css" />
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/angular.min.js"></script>
@@ -21,54 +22,22 @@
 </head>
 <script src="/socket.io/socket.io.js"></script>
 <body>
+	<growl-notifications></growl-notifications>
 	<div>
 		<div ng-controller="MainCtrl as main">
 			<div class="backDrop" ng-show="loading">
 				<img ng-show="loading" ng-src="css/png/ajax-loader.gif" />
 			</div>
-			<nav role="navigation" class="navbar navbar-inverse">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed"></button><a href="#" class="navbar-brand">Node-Hue</a>
-					</div>
-					<div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
-						<ul class="nav navbar-nav">
-							<li>
-								<a href="app/login">Logout</a>
-							</li>
-							<li>
-								<a href="app/status">Status</a>
-							</li>
-							<li>
-								<a href="app/hive">Hive</a>
-							</li>
-							<li>
-								<a href="app/jobs">Jobs</a>
-							</li>
-							<li>
-								<a href="app/settings">Settings</a>
-							</li>
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="#" id='loggedInUser'></a></li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-			<div class="view-animate-container">
-				<div ng-view class="view-animate"></div>
+			<main-view></main-view>
+		</div>
+		<div ng-controller="notifications">
+			<div ng-repeat="n in notes">
+				<growl-notification>
+					<p>{{n.type}}</p>
+					<p>{{n.msg}}</p>
+				</grow-notification>
 			</div>
 		</div>
-		<growl-notifications>
-			<div ng-controller="notifications">
-				<div ng-repeat="n in notes">
-					<growl-notification>
-						<p>{{n.type}}</p>
-						<p>{{n.msg}}</p>
-					</grow-notification>
-				</div>
-			</div>
-		</growl-notifications>
 	</div>
 </body>
 </html>

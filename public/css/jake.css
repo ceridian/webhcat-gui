@@ -191,13 +191,16 @@ growl-notifications {
   right: 10px;
   z-index: 1000;
 }
-
-growl-notifications growl-notification {
+growl-notification {
   background: rgba(0,0,0,0.6);
-  color: white;
+  background-color: white;
   padding: 15px 30px;
   width: 200px;
   display: block;
   border-radius: 5px;
   margin-top: 15px;
+  border: 1px solid #eeeeee;
+  border-left-width: 5px;
+  border-radius: 3px;
+  border-left-color: #f0ad4e;
 }

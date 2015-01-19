@@ -4,6 +4,9 @@
 
 	app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
 		$routeProvider
+			.when('/', {
+				redirect: '/login'
+			})
 			.when('/app/login', {
 				templateUrl: 'temps/login-setup.html',
 				controller: 'LoginSetup',
@@ -38,7 +41,8 @@
 		$locationProvider.html5Mode(true);
 	} ]);
 
-	app.run(function($rootScope, $location){
+	app.run(function($rootScope, $location, $route){
+		$route.reload();
 		$rootScope.$watch(function(){ return $location.path(); }, function(newVal, oldVal){
 			if (!$rootScope.loggedInUser && newVal != '/login'){
 				$location.path('/login');
@@ -70,34 +74,39 @@
 		};
 	}]);
 
+	app.directive('mainView', function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'temps/mainView.html',
+			controller: function($scope, $rootScope){
+
+			}
+		};
+	});
+
+	app.directive('navBar', function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'temps/navBar.html',
+			controller: function($scope, $rootScope){
+
+			}
+		};
+	});
+
 	app.controller('MainCtrl', ['$scope', function($scope){
 		$scope.$on('LOAD', function(){$scope.loading=true});
 		$scope.$on('UNLOAD', function(){$scope.loading=false});
 	} ]);
 
-	app.directive('showonhoverparent',
-		function(){
-			return {
-				link: function(scope, element, attrs){
-					element.parent().bind('mouseenter', function(){
-						element.show();
-					});
-					element.parent().bind('mouseleave', function(){
-						element.hide();
-					});
-				}
-			}
-		}
-	);
-
-	app.controller('notifications', ['$scope', 'socket', function($scope, socket){
-		$scope.notes = [];
+	app.controller('notifications', ['$rootScope', 'socket', function($rootScope, socket){
+		$rootScope.notes = [];
 		socket.on('alert', function(msg){
-			$scope.notes.push(msg);
+			$rootScope.notes.push(msg);
 		});
 	}]);
 
-	app.controller('LoginSetup', ['$http', '$rootScope', '$location', function($http, $rootScope, $location){
+	app.controller('LoginSetup', ['$http', '$rootScope', '$location', '$scope', function($http, $rootScope, $location){
 		this.name = 'Login';
 		this.login = function(main){
 			var user = main.user;
@@ -109,15 +118,20 @@
 				var group = data.group;
 				if(status == 'ok'){
 					$rootScope.loggedInUser = user;
-					$('#loggedInUser').text(user);
+					//$('#loggedInUser').text(user);
 					$location.path('/app/status');
 				}else{
-					$('#errorBody').html('<h4>'+status+'</h4>');
-					$('#errorPopup').modal('show');
+					var msg = {
+						type: 'Login',
+						msg: status
+					};
+					$rootScope.notes.push(msg);
+					//$('#errorBody').html('<h4>'+status+'</h4>');
+					//$('#errorPopup').modal('show');
 				}
 			}).error(function(data, status, headers, config) {
-				$('#errorBody').html('<h4>'+data.status+'</h4>');
-				$('#errorPopup').modal('show');
+				//$('#errorBody').html('<h4>'+data.status+'</h4>');
+				//$('#errorPopup').modal('show');
 			});
 		};
 	} ]);
