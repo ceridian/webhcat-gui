@@ -43,6 +43,13 @@
 
 	app.run(function($rootScope, $location, $route){
 		$route.reload();
+		$rootScope.logger = function(type, info){
+			$http.post('/login', {user: user, pass: pass}).success(function(data, status, headers, config){
+
+			}).error(function(data, status, headers, config) {
+
+			});
+		}
 		$rootScope.$watch(function(){ return $location.path(); }, function(newVal, oldVal){
 			if (!$rootScope.loggedInUser && newVal != '/login'){
 				$location.path('/login');
@@ -102,12 +109,14 @@
 	app.controller('notifications', ['$rootScope', 'socket', function($rootScope, socket){
 		$rootScope.notes = [];
 		socket.on('alert', function(msg){
+			console.log(msg);
 			$rootScope.notes.push(msg);
 		});
 	}]);
 
 	app.controller('LoginSetup', ['$http', '$rootScope', '$location', '$scope', function($http, $rootScope, $location){
 		this.name = 'Login';
+
 		this.login = function(main){
 			var user = main.user;
 			var pass = main.pass;
@@ -118,20 +127,12 @@
 				var group = data.group;
 				if(status == 'ok'){
 					$rootScope.loggedInUser = user;
-					//$('#loggedInUser').text(user);
 					$location.path('/app/status');
 				}else{
-					var msg = {
-						type: 'Login',
-						msg: status
-					};
-					$rootScope.notes.push(msg);
-					//$('#errorBody').html('<h4>'+status+'</h4>');
-					//$('#errorPopup').modal('show');
+					console.log(status);
 				}
 			}).error(function(data, status, headers, config) {
-				//$('#errorBody').html('<h4>'+data.status+'</h4>');
-				//$('#errorPopup').modal('show');
+				console.log(data.status);
 			});
 		};
 	} ]);

@@ -33,8 +33,8 @@
 		<div ng-controller="notifications">
 			<div ng-repeat="n in notes">
 				<growl-notification>
-					<p>{{n.type}}</p>
-					<p>{{n.msg}}</p>
+					<p>{{n.alertName}}</p>
+					<p>{{n.description}}</p>
 				</grow-notification>
 			</div>
 		</div>
