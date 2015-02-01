@@ -7,7 +7,7 @@ var i = require('../lib/io.js');
 router.get('/:jobid', function(req, res) {
   var jobid = req.param('jobid');
   console.log(jobid, 'get: /callback/:jobid');
-  i.alert('info', jobid, 'Hive Query', 'Job Done');
+  i.alert('info', 'Job Completed', 'Hive Query', 'jobID: '+jobid);
   res.status(200).end();
 });
 

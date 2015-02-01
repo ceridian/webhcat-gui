@@ -1,0 +1,11 @@
+2015-02-02 15:23	info	Login	auth.js: checkUser()	admin: Authenticated.
+2015-02-02 15:25	info	Login	auth.js: checkUser()	admin: Authenticated.
+2015-02-02 15:27	info	Login	auth.js: checkUser()	admin: Authenticated.
+2015-02-02 15:30	info	Login	auth.js: checkUser()	admin: Authenticated.
+2015-02-02 15:36	info	Login	auth.js: checkUser()	admin: Authenticated.
+2015-02-02 15:39	info	Login	auth.js: checkUser()	admin: Authenticated.
+2015-02-02 15:41	info	Login	auth.js: checkUser()	admin: Authenticated.
+2015-02-02 15:42	info	Login	auth.js: checkUser()	admin: Authenticated.
+2015-02-02 15:43	info	Login	auth.js: checkUser()	admin: Authenticated.
+2015-02-02 15:46	info	Login	auth.js: checkUser()	admin: Authenticated.
+

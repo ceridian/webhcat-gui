@@ -1,0 +1,4 @@
+2015-01-23 14:19	error	Failed Login	auth.js: checkUser()	admin: Incorrect Password.
+2015-01-23 14:19	error	Failed Login	auth.js: checkUser()	admin: Incorrect Password.
+2015-01-23 14:20	info	Login	auth.js: checkUser()	admin: Authenticated.
+

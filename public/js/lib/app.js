@@ -137,12 +137,215 @@
 		};
 	} ]);
 
-	app.controller('StatusSetup', ['$scope', '$http', function($scope, $http){
+	app.controller('StatusSetup', ['$scope', '$http', '$location', function($scope, $http, $location){
 		this.name = 'Status';
+
 
 		$http.get('/statusDump').success(function(data){
 
 			data.forEach(function(d){
+				d.Time = new Date(d.Time);
+				d.Delay = +d.Delay;
+			});
+
+			var colors = [
+				'steelblue',
+				'green',
+				'red',
+				'purple'
+			];
+
+			var margin = {top: 50, right: 50, bottom: 70, left: 50};
+			var	width = 1200 - margin.left - margin.right;
+			var	height = 620 - margin.top - margin.bottom;
+
+			var xExt = d3.extent(data, function(d) { return d.Time; });
+			var yExt = d3.extent(data, function(d) { return d.Delay; });
+
+			var random = function(){
+				var num = Math.floor(Math.random() * 10);
+				var obj = {}
+				obj.Time = new Date();
+				obj.Delay = num;
+				return obj;
+			}
+
+			var x = d3.time.scale()
+				.range([0, width])
+				.domain(xExt);
+
+			var y = d3.scale.linear()
+				.range([height, 0])
+				.domain(yExt);
+
+			var xAxis = d3.svg.axis()
+				.scale(x)
+				.orient("bottom")
+				.ticks(d3.time.days)
+				.ticks(10);
+
+			var yAxis = d3.svg.axis()
+				.scale(y)
+				.orient("left")
+				.ticks(10)
+				.tickFormat(d3.format("s"));
+
+			var line = d3.svg.line()
+				.x(function(d) { return x(d.Time); })
+				.y(function(d) { return y(d.Delay); });
+
+			var pointsEqual = function(p1, p2){
+				return p1.Delay === p2.Delay;
+			}
+
+			var removeDupes = function(items, areEqual){
+				var pre2;
+				var pre;
+				var results = [];
+				var straightLine = false;
+
+				var callback = function(value, index){
+					if(index === 0 || !areEqual(value, pre)){
+						if (straightLine){
+							results.push(pre);
+						}
+						results.push(value);
+						pre = value;
+					}else{
+						pre2 = pre;
+						pre = value;
+						if(pre.Delay == pre2.Delay){
+							straightLine = true;
+						}
+					}
+				}
+				items.forEach(callback);
+
+				return results;
+			}
+
+			var done = removeDupes(data, pointsEqual);
+
+
+			var zoom = d3.behavior.zoom()
+				.x(x)
+				.y(y)
+				.scaleExtent([1, 10])
+				.on("zoom", zoomed);
+
+			var svg = d3.select("body").append("svg")
+				.call(zoom)
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+				.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			// svg.append("defs").append("clipPath")
+			// 	.attr("id", "clip")
+			// 	.append("rect")
+			// 	.attr("width", width)
+			// 	.attr("height", height);
+
+			svg.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate(0," + y(0) + ")")
+				.call(xAxis);
+				//.call(d3.svg.axis().scale(x).orient("bottom"));
+
+			svg.append("g")
+				.attr("class", "y axis")
+				.call(yAxis);
+				//.call(d3.svg.axis().scale(y).orient("left"));
+
+			svg.append("defs").append("clipPath")
+				.attr("id", "clip")
+				.append("rect")
+				.attr("width", width)
+				.attr("height", height);
+
+			// var path = svg.append("g")
+			// 	.attr("clip-path", "url(#clip)")
+			// 	.append("path")
+			// 		.datum(done)
+			// 		.attr("class", "line")
+			// 		.attr("d", line);
+
+			//svg.selectAll('.line')
+			//	.data(data)
+			//	.enter()
+			svg.append("path")
+				.datum(done)
+				.attr("class", "line")
+				.attr("d", line)
+				.attr("clip-path", "url("+$location.path()+"#clip)");
+				// .attr('stroke', function(d,i){
+				// 	return colors[i%colors.length];
+				// })
+				//.attr("d", line);
+
+			function zoomed(){
+				// var t = zoom.translate(),
+				// tx = t[0],
+				// ty = t[1];
+				//
+				// var d = new Date(new Date().setDate(new Date().getDate()-7));
+				//
+				// zoom.translate([0, d]);
+
+				svg.select(".x.axis").call(xAxis);
+				svg.select(".y.axis").call(yAxis);
+				svg.selectAll('path.line').attr('d', line);
+			}
+
+			// setInterval(function() {
+			// 	var num = random();
+			// 	console.log(num);
+			// 	done.push(num);
+			//
+			// 	var last = done[done.length -1];
+			//
+			// 	var one = num.Time.getTime();
+			// 	var two = last.Time.getTime();
+			//
+			// 	var diff = one - two;
+			//
+			// 	var start = xExt[0];
+			//
+			// 	var s = start.getTime();
+			//
+			// 	var trans = new Date(s - diff);
+			//
+			// 	var diff = num.Time - last.Time;
+			// 	//console.log(x(new Date(0)) - x(new Date(24*3600*1000)));
+			//
+			// 	path //.transition().duration(500)
+			// 		.attr("d", line)
+			// 		.attr("transform", null)
+			// 		.transition()
+			// 		.duration(500)
+			// 		.ease("linear")
+			// 		.attr("transform", "translate(" + x(trans) + ",0)");
+			// 		// .attr("d", line)
+			// 		// .attr("transform", null)
+			// 		// .transition()
+			// 		// .duration(500)
+			//
+			//
+			// 		// .attr("transform", "translate(" + x(-1) + ",0)");
+			// 	// redraw the line, and slide it to the left
+			// 	// path
+			// 	// .attr("d", line)
+			// 	// .attr("transform", null)
+			// 	// .transition()
+			// 	// .duration(1000)
+			// 	// .ease("linear")
+			// 	// .attr("transform", "translate(" + x(-1) + ",0)")
+			// 	// .each("end", tick);
+			//
+			// 	// pop the old data point off the front
+			//
+			// }, 5000);
+			/*data.forEach(function(d){
 				d.Time = new Date(d.Time);
 				d.Delay = +d.Delay;
 			});
@@ -181,6 +384,12 @@
 				.ticks(10)
 				.tickFormat(d3.format("s"));
 
+			var zoom = d3.behavior.zoom()
+				.x(x)
+				.y(y)
+				.scaleExtent([1, 10])
+				.on("zoom", zoomed);
+
 			var color = d3.scale.category20();
 
 			var line = d3.svg.line()
@@ -188,10 +397,22 @@
 				.y(function(d) { return y(d.Delay); });
 
 			var svg = d3.select("#graph").append("svg")
+				.call(zoom)
 				.attr("width", width + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom)
 				.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			// svg.append("rect")
+			// 	.attr("width", width)
+			// 	.attr("height", height)
+			// 	.attr("fill", "#ddd");
+
+			svg.append("clipPath")
+				.attr("id", "clip")
+				.append("rect")
+				.attr("width", width)
+				.attr("height", height);
 
 			svg.append("g")
 				.attr("class", "x axis")
@@ -221,20 +442,43 @@
 
 			var hold = '<ul class="legend">';
 
+			//var data = [];
+
 			dataNest.forEach(function(v, i){
 
-				svg.append('path')
-					.attr('class', 'line')
-					.style('stroke', function(){
-						return v.color = color(v.key);
-					})
-					.attr('id', v.key+'_line')
-					.attr('d', line(v.values));
+				// svg.append('path')
+				// 	.attr('class', 'line')
+				// 	.style('stroke', function(){
+				// 		return v.color = color(v.key);
+				// 	})
+				// 	.attr("clip-path", "url(#clip)")
+				// 	.attr('id', v.key+'_line')
+				// 	.attr('d', line(v.values));
+
+				data.push(v.values);
 
 				hold += '<li style="color:'+color(v.key+'_line')+';"><input type="checkbox" id="'+v.key+'_box"> '+v.key+'</li>';
 			});
 			hold += '</ul>';
+
+			svg.selectAll('.line')
+				.data(data)
+				.enter()
+				.append("path")
+					.attr("class", "line")
+				.attr("clip-path", "url(#clip)")
+				.attr('stroke', function(d,i){
+					return color(i);
+				})
+					.attr("d", line);
+
 			$('#legend').html(hold);
+
+			function zoomed(){
+				svg.select(".x.axis").call(xAxis);
+				svg.select(".y.axis").call(yAxis);
+				svg.selectAll('path.line').attr('d', line);
+			}*/
 
 		}).error(function(data){
 			console.log(data);

@@ -48,8 +48,12 @@
   padding-top: 50px;
 }
 .line {
+  fill: none;
+  stroke: #000;
   stroke-width: 1.5px;
-  fill-opacity: 0;
+}
+svg {
+  font: 10px sans-serif;
 }
 .tree {
     min-height:20px;
